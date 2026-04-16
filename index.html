@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vouch | SSL for Humans</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        vouch: {
+                            dark: '#0B0F19',
+                            card: '#111827',
+                            green: '#10B981',
+                            glow: 'rgba(16, 185, 129, 0.15)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #0B0F19; color: white; }
+        .glass-nav { background: rgba(11, 15, 25, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .gradient-text { background: linear-gradient(to right, #10B981, #3B82F6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* Demo Animation Styles */
+        .demo-bubble { transition: all 0.5s ease; border: 1px solid rgba(255,255,255,0.1); }
+        .demo-bubble.verified { border-color: #10B981; box-shadow: 0 0 20px rgba(16, 185, 129, 0.1); background: rgba(16, 185, 129, 0.02); }
+        .badge-hidden { opacity: 0; transform: translateY(10px); transition: all 0.4s ease; display: none; }
+        .badge-visible { opacity: 1; transform: translateY(0); display: flex; }
+        .raw-sig { transition: opacity 0.3s; }
+        .raw-sig.hidden { display: none; }
+    </style>
+</head>
+<body class="antialiased font-sans selection:bg-vouch-green selection:text-white">
+
+    <nav class="fixed w-full z-50 glass-nav transition-all">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded bg-vouch-green flex items-center justify-center text-vouch-dark font-bold text-xl">V</div>
+                <span class="font-bold text-xl tracking-tight">Vouch</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm text-gray-400 font-medium">
+                <a href="#problem" class="hover:text-white transition">The Problem</a>
+                <a href="#how-it-works" class="hover:text-white transition">How it Works</a>
+                <a href="#enterprise" class="hover:text-white transition">Enterprise</a>
+            </div>
+            <button class="bg-white text-vouch-dark px-5 py-2.5 rounded-md text-sm font-semibold hover:bg-gray-200 transition">
+                Request Access
+            </button>
+        </div>
+    </nav>
+
+    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-vouch-green opacity-20 rounded-full blur-[120px] pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+            <div>
+                <div class="inline-block px-3 py-1 border border-vouch-green/30 bg-vouch-green/10 text-vouch-green text-xs font-mono rounded-full mb-6">
+                    BETA V1.0 • EARLY ACCESS
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6">
+                    SSL for <span class="gradient-text">Humans.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-lg leading-relaxed">
+                    AI makes impersonation effortless. Vouch provides deterministic, cryptographic proof of identity for B2B email, chat, and support. Stop guessing. Start verifying.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="bg-vouch-green text-vouch-dark px-8 py-4 rounded-md font-bold hover:bg-emerald-400 transition shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                        Deploy to Workspace
+                    </button>
+                    <button class="px-8 py-4 rounded-md font-semibold text-white border border-gray-700 hover:bg-gray-800 transition">
+                        Read the Whitepaper
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-vouch-card border border-gray-800 rounded-xl p-6 shadow-2xl relative">
+                <div class="flex gap-2 mb-4 border-b border-gray-800 pb-4">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-gray-700 flex-shrink-0"></div>
+                        <div class="demo-bubble bg-gray-800/50 p-4 rounded-lg rounded-tl-none w-full relative overflow-hidden" id="chat-bubble">
+                            <p class="text-gray-300 text-sm mb-4">
+                                Hi David,<br><br>Please route the $50,000 vendor payment to our updated routing number below. Let me know when it's sent.
+                            </p>
+                            
+                            <div class="raw-sig text-xs font-mono text-gray-500 border-t border-gray-700 pt-3" id="raw-sig">
+                                ---<br>
+                                [🔒 Vouched Identity: did:web:epicgames.com:sarah]<br>
+                                Sig: 3b9c8f1e2a...a1d2e3f4
+                            </div>
+
+                            <div class="badge-hidden items-center gap-2 bg-vouch-green/10 border border-vouch-green/30 text-vouch-green p-2 rounded mt-3" id="verified-badge">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span class="text-xs font-semibold">Verified Identity: Sarah (Epic Games)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 flex justify-between items-center text-xs text-gray-500 font-mono">
+                    <span id="demo-status">Status: Unverified</span>
+                    <button onclick="toggleVerification()" class="text-vouch-green hover:underline focus:outline-none">Simulate Extension Scan</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="how-it-works" class="py-24 bg-vouch-card border-y border-gray-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Cryptography, abstracted.</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Vouch uses standard Ed25519 signatures and DID:Web infrastructure, hidden behind a zero-friction browser extension.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-vouch-dark p-8 rounded-xl border border-gray-800 hover:border-gray-700 transition">
+                    <div class="w-12 h-12 bg-blue-500/10 text-blue-400 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">1. Sign & Send</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Agents click one button in Gmail or Zendesk. The extension hashes the message and applies a cryptographic signature using a locally stored private key.</p>
+                </div>
+                <div class="bg-vouch-dark p-8 rounded-xl border border-gray-800 hover:border-gray-700 transition">
+                    <div class="w-12 h-12 bg-vouch-green/10 text-vouch-green rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">2. Passive Verification</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">The receiver's extension scans the DOM, reads the signature, and instantly queries the decentralized trust registry to verify the sender's public key.</p>
+                </div>
+                <div class="bg-vouch-dark p-8 rounded-xl border border-gray-800 hover:border-gray-700 transition">
+                    <div class="w-12 h-12 bg-red-500/10 text-red-400 rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">3. The Kill Switch</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">When an employee leaves, IT revokes their access. Within milliseconds, all their past and future intercepted signatures turn red globally.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="enterprise" class="py-24">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-3xl font-bold mb-6">Built for Enterprise IT.</h2>
+                <p class="text-gray-400 mb-6 text-lg">No manual key management. No complex onboarding. Vouch integrates directly with your existing Identity Provider via SCIM 2.0.</p>
+                
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center gap-3 text-gray-300">
+                        <svg class="w-5 h-5 text-vouch-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Automated provisioning via Okta & Azure AD
+                    </li>
+                    <li class="flex items-center gap-3 text-gray-300">
+                        <svg class="w-5 h-5 text-vouch-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Zero-touch Chrome Extension deployment via MDM
+                    </li>
+                    <li class="flex items-center gap-3 text-gray-300">
+                        <svg class="w-5 h-5 text-vouch-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Instant, automated revocation on employee termination
+                    </li>
+                </ul>
+                <button class="text-white font-semibold border-b border-vouch-green pb-1 hover:text-vouch-green transition">View API Documentation &rarr;</button>
+            </div>
+            
+            <div class="bg-vouch-card p-8 rounded-xl border border-gray-800 font-mono text-sm shadow-2xl">
+                <div class="flex gap-2 mb-4 opacity-50">
+                    <span class="text-blue-400">POST</span> <span class="text-gray-300">/scim/v2/Users/{id}</span>
+                </div>
+                <pre class="text-gray-400 overflow-x-auto"><code>{
+  <span class="text-pink-400">"schemas"</span>: [<span class="text-green-300">"urn:ietf:params:scim..."</span>],
+  <span class="text-pink-400">"Operations"</span>: [
+    {
+      <span class="text-pink-400">"op"</span>: <span class="text-green-300">"replace"</span>,
+      <span class="text-pink-400">"path"</span>: <span class="text-green-300">"active"</span>,
+      <span class="text-pink-400">"value"</span>: <span class="text-yellow-300">false</span>
+    }
+  ]
+}</code></pre>
+                <div class="mt-4 pt-4 border-t border-gray-800 text-xs text-gray-500">
+                    // Triggering instant global key revocation...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-gray-800 bg-vouch-card py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded bg-vouch-green flex items-center justify-center text-vouch-dark font-bold text-xs">V</div>
+                <span class="font-bold text-lg tracking-tight text-white">Vouch</span>
+            </div>
+            <div class="text-sm text-gray-500">
+                &copy; 2026 Vouch Identity, Inc. All rights reserved.
+            </div>
+            <div class="flex gap-6 text-sm text-gray-400">
+                <a href="#" class="hover:text-white transition">Privacy</a>
+                <a href="#" class="hover:text-white transition">Terms</a>
+                <a href="#" class="hover:text-white transition">Trust Center</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let isVerified = false;
+        function toggleVerification() {
+            const bubble = document.getElementById('chat-bubble');
+            const rawSig = document.getElementById('raw-sig');
+            const badge = document.getElementById('verified-badge');
+            const statusText = document.getElementById('demo-status');
+
+            isVerified = !isVerified;
+
+            if (isVerified) {
+                // Scanning state
+                statusText.innerText = "Status: Scanning DOM...";
+                statusText.classList.add('text-blue-400');
+                
+                setTimeout(() => {
+                    rawSig.classList.add('hidden');
+                    bubble.classList.add('verified');
+                    badge.classList.remove('badge-hidden');
+                    badge.classList.add('badge-visible');
+                    statusText.innerText = "Status: Signature Verified via Trust Registry";
+                    statusText.classList.remove('text-blue-400');
+                    statusText.classList.add('text-vouch-green');
+                }, 600); // Simulate network/crypto latency
+            } else {
+                // Reset
+                rawSig.classList.remove('hidden');
+                bubble.classList.remove('verified');
+                badge.classList.add('badge-hidden');
+                badge.classList.remove('badge-visible');
+                statusText.innerText = "Status: Unverified";
+                statusText.classList.remove('text-vouch-green');
+            }
+        }
+    </script>
+</body>
+</html>
