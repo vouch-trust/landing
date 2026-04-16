@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -42,6 +43,7 @@
 </head>
 <body class="antialiased font-sans selection:bg-vouch-green selection:text-white">
 
+    <!-- Navigation -->
     <nav class="fixed w-full z-50 glass-nav transition-all">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-2">
@@ -59,6 +61,7 @@
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-vouch-green opacity-20 rounded-full blur-[120px] pointer-events-none"></div>
         
@@ -77,12 +80,15 @@
                     <button class="bg-vouch-green text-vouch-dark px-8 py-4 rounded-md font-bold hover:bg-emerald-400 transition shadow-[0_0_20px_rgba(16,185,129,0.3)]">
                         Deploy to Workspace
                     </button>
-                    <button class="px-8 py-4 rounded-md font-semibold text-white border border-gray-700 hover:bg-gray-800 transition">
+                    <!-- UPDATED: Links directly to the generated whitepaper PDF -->
+                    <a href="Vouch_Whitepaper.pdf" target="_blank" class="px-8 py-4 rounded-md font-semibold text-white border border-gray-700 hover:bg-gray-800 transition inline-block text-center flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         Read the Whitepaper
-                    </button>
+                    </a>
                 </div>
             </div>
 
+            <!-- Interactive Demo UI -->
             <div class="bg-vouch-card border border-gray-800 rounded-xl p-6 shadow-2xl relative">
                 <div class="flex gap-2 mb-4 border-b border-gray-800 pb-4">
                     <div class="w-3 h-3 rounded-full bg-red-500"></div>
@@ -98,12 +104,14 @@
                                 Hi David,<br><br>Please route the $50,000 vendor payment to our updated routing number below. Let me know when it's sent.
                             </p>
                             
+                            <!-- Unverified Raw Sig -->
                             <div class="raw-sig text-xs font-mono text-gray-500 border-t border-gray-700 pt-3" id="raw-sig">
                                 ---<br>
                                 [🔒 Vouched Identity: did:web:epicgames.com:sarah]<br>
                                 Sig: 3b9c8f1e2a...a1d2e3f4
                             </div>
 
+                            <!-- Verified Badge -->
                             <div class="badge-hidden items-center gap-2 bg-vouch-green/10 border border-vouch-green/30 text-vouch-green p-2 rounded mt-3" id="verified-badge">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                 <span class="text-xs font-semibold">Verified Identity: Sarah (Epic Games)</span>
@@ -120,6 +128,7 @@
         </div>
     </header>
 
+    <!-- Features Section -->
     <section id="how-it-works" class="py-24 bg-vouch-card border-y border-gray-800">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16">
@@ -128,6 +137,7 @@
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
                 <div class="bg-vouch-dark p-8 rounded-xl border border-gray-800 hover:border-gray-700 transition">
                     <div class="w-12 h-12 bg-blue-500/10 text-blue-400 rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
@@ -135,6 +145,7 @@
                     <h3 class="text-xl font-bold mb-3">1. Sign & Send</h3>
                     <p class="text-gray-400 text-sm leading-relaxed">Agents click one button in Gmail or Zendesk. The extension hashes the message and applies a cryptographic signature using a locally stored private key.</p>
                 </div>
+                <!-- Feature 2 -->
                 <div class="bg-vouch-dark p-8 rounded-xl border border-gray-800 hover:border-gray-700 transition">
                     <div class="w-12 h-12 bg-vouch-green/10 text-vouch-green rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
@@ -142,6 +153,7 @@
                     <h3 class="text-xl font-bold mb-3">2. Passive Verification</h3>
                     <p class="text-gray-400 text-sm leading-relaxed">The receiver's extension scans the DOM, reads the signature, and instantly queries the decentralized trust registry to verify the sender's public key.</p>
                 </div>
+                <!-- Feature 3 -->
                 <div class="bg-vouch-dark p-8 rounded-xl border border-gray-800 hover:border-gray-700 transition">
                     <div class="w-12 h-12 bg-red-500/10 text-red-400 rounded-lg flex items-center justify-center mb-6">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -153,6 +165,7 @@
         </div>
     </section>
 
+    <!-- Enterprise / SCIM Section -->
     <section id="enterprise" class="py-24">
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
             <div>
@@ -173,7 +186,7 @@
                         Instant, automated revocation on employee termination
                     </li>
                 </ul>
-                <button class="text-white font-semibold border-b border-vouch-green pb-1 hover:text-vouch-green transition">View API Documentation &rarr;</button>
+                <a href="Vouch_Whitepaper.pdf" target="_blank" class="text-white font-semibold border-b border-vouch-green pb-1 hover:text-vouch-green transition">Read the Technical Architecture in the Whitepaper &rarr;</a>
             </div>
             
             <div class="bg-vouch-card p-8 rounded-xl border border-gray-800 font-mono text-sm shadow-2xl">
@@ -197,6 +210,7 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="border-t border-gray-800 bg-vouch-card py-12">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-2">
@@ -214,6 +228,7 @@
         </div>
     </footer>
 
+    <!-- Interactive Demo Script -->
     <script>
         let isVerified = false;
         function toggleVerification() {
